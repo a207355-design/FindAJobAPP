@@ -9,6 +9,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState // 🚨 必须导入
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,6 +27,10 @@ import com.example.findajobapp.jobList
 @Composable
 fun FindScreen(viewModel: AppViewModel) {
 
+    // 🚨 关键修改：告诉这个界面随时盯着数据库。这样点爱心时才能瞬间刷新！
+    val favoriteJobs by viewModel.favoriteJobs.collectAsState()
+
+    //记住你滑到了哪里，返回的时候还能在那里
     val listState = rememberLazyListState()
 
     //UI从viwmodel里面读取数据
@@ -33,7 +38,6 @@ fun FindScreen(viewModel: AppViewModel) {
     val locationText = viewModel.locationText.value
 
     var selectedChip by remember { mutableStateOf("") }
-
     var selectedRecruiter by remember { mutableStateOf("") }
     var selectedJobType by remember { mutableStateOf("") }
     var selectedDate by remember { mutableStateOf("") }
@@ -43,10 +47,8 @@ fun FindScreen(viewModel: AppViewModel) {
 
         Header(
             searchText = searchText,
-            //用户输入：改数据
             onSearchChange = { viewModel.updateSearch(it) },
             locationText = locationText,
-            //用户输入：改数据
             onLocationChange = { viewModel.updateLocation(it) }
         )
 
@@ -55,7 +57,7 @@ fun FindScreen(viewModel: AppViewModel) {
                 .weight(1f)
                 .fillMaxWidth()
         ) {
-
+            //过滤逻辑
             val filteredList = jobList.filter { job ->
                 val matchSearch = job.title.contains(searchText, true)
                 val matchLocation = job.location.contains(locationText, true)
@@ -89,7 +91,6 @@ fun FindScreen(viewModel: AppViewModel) {
                         else -> true
                     }
                 }
-
                 matchSearch && matchLocation && matchJobType && matchDate && matchSalary && matchQuickChip
             }
 
@@ -98,15 +99,13 @@ fun FindScreen(viewModel: AppViewModel) {
                 modifier = Modifier.fillMaxSize(),
                 contentPadding = PaddingValues(top = 60.dp, bottom = 16.dp)
             ) {
-                //渲染job列表
                 items(filteredList) { job ->
-                    //判断这个job是否是收藏状态
-                    val isFav = viewModel.isFavorite(job)
+                    // 🚨 关键修改：直接用我们刚才订阅的流状态来判断是否收藏，确保 100% 灵敏
+                    val isFav = favoriteJobs.any { it.title == job.title && it.company == job.company }
 
                     JobCard(
                         job = job,
                         isFavorite = isFav,
-                        //点击爱心修改状态
                         onFavoriteClick = {
                             viewModel.toggleFavorite(job)
                         }
@@ -116,9 +115,7 @@ fun FindScreen(viewModel: AppViewModel) {
 
             FilterBar(
                 selectedChip = selectedChip,
-                onChipClick = {
-                    selectedChip = if (selectedChip == it) "" else it
-                },
+                onChipClick = { selectedChip = if (selectedChip == it) "" else it },
                 selectedRecruiter = selectedRecruiter,
                 onRecruiterChange = { selectedRecruiter = it },
                 selectedJobType = selectedJobType,

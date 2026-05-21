@@ -24,8 +24,8 @@ import com.example.findajobapp.Job
 @Composable
 fun JobCard(
     job: Job,
-    isFavorite: Boolean,
-    onFavoriteClick: () -> Unit
+    isFavorite: Boolean,   //接收指令：是红心还是白心
+    onFavoriteClick: () -> Unit  //准备点击器，被点击时我应该调用谁
 ) {
     Card(
         modifier = Modifier
@@ -99,6 +99,7 @@ fun JobCard(
                 Text(
                     text = if (isFavorite) "❤️" else "🤍",
                     fontSize = 20.sp,
+                    //被点击后向上面汇报我被点击了
                     modifier = Modifier.clickable {
                         onFavoriteClick()
                     }

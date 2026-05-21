@@ -98,8 +98,25 @@ fun Bottom(
 fun MainScreen(modifier: Modifier = Modifier) {
     //创建navController 控制页面跳转
     val navController = rememberNavController()
-    //用ViewModel创建全局数据
-    val viewModel: AppViewModel = viewModel()
+    // 👇👇👇 从这里开始替换：我们要写一个工厂 (Factory) 来告诉系统怎么组装 ViewModel 👇👇👇
+    val context = androidx.compose.ui.platform.LocalContext.current
+    val viewModel: AppViewModel = androidx.lifecycle.viewmodel.compose.viewModel(
+        factory = object : androidx.lifecycle.ViewModelProvider.Factory {
+            override fun <T : androidx.lifecycle.ViewModel> create(modelClass: Class<T>): T {
+                // 1. 获取手机上下文，拉起数据库
+                val database = com.example.findajobapp.data.FavoriteJobDatabase.getDatabase(context)
+                // 2. 把数据库的 DAO 交给前台接待员 Repository
+                // 注意括号里面，逗号后面补上了 database.chatDao()
+                val repository = com.example.findajobapp.data.FavoriteJobRepository(
+                    database.favoriteJobDao(),
+                    database.chatDao()  // <-- 必须补上这一行！
+                )
+                // 3. 把 Repository 塞进 ViewModel 的大脑里
+                @Suppress("UNCHECKED_CAST")
+                return AppViewModel(repository) as T
+            }
+        }
+    )
     Column(modifier = modifier.fillMaxSize()) {
 
         //中间区域（导航控制）

@@ -37,7 +37,8 @@ fun ProfileScreen(viewModel: AppViewModel) {
 
     //控制现在是查看模式还是编辑模式
     var isEditing by remember { mutableStateOf(false) }
-
+    //定义 user 变量，从 ViewModel 的 profile 中取出当前的状态值
+    val user = viewModel.profile.value
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -88,28 +89,28 @@ fun ProfileScreen(viewModel: AppViewModel) {
                     //根据 isEditing 决定显示 Text 或 TextField
                     EditableItem(
                         label = "Name",
-                        value = viewModel.name.value,
+                        value = user.name, // 对应 viewModel.profile.value.name
                         isEditing = isEditing,
                         onValueChange = { viewModel.updateName(it) }
                     )
 
                     EditableItem(
                         label = "Gender",
-                        value = viewModel.gender.value,
+                        value = user.gender,
                         isEditing = isEditing,
                         onValueChange = { viewModel.updateGender(it) }
                     )
 
                     EditableItem(
                         label = "Age",
-                        value = viewModel.age.value,
+                        value = user.age,
                         isEditing = isEditing,
                         onValueChange = { viewModel.updateAge(it) }
                     )
 
                     EditableItem(
                         label = "Location",
-                        value = viewModel.location.value,
+                        value = user.location,
                         isEditing = isEditing,
                         onValueChange = { viewModel.updateProfileLocation(it) }
                     )
@@ -118,14 +119,14 @@ fun ProfileScreen(viewModel: AppViewModel) {
 
                     EditableItem(
                         label = "Email",
-                        value = viewModel.email.value,
+                        value = user.email,
                         isEditing = isEditing,
                         onValueChange = { viewModel.updateEmail(it) }
                     )
 
                     EditableItem(
                         label = "Phone",
-                        value = viewModel.phone.value,
+                        value = user.phone,
                         isEditing = isEditing,
                         onValueChange = { viewModel.updatePhone(it) }
                     )
