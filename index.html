@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SUN HUAYI - Mobile Programming e-Portfolio</title>
+  <style>
+    :root {
+      /* SDG 1 No Poverty Red Theme */
+      --primary-color: #E5243B;
+      --secondary-color: #B31B2D;
+      --text-color: #333;
+      --bg-color: #f8f9fa;
+      --card-bg: #ffffff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      color: var(--text-color);
+      background: var(--bg-color);
+      line-height: 1.6;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background: var(--primary-color);
+      color: white;
+      padding: 3rem 1rem;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    header p {
+      font-size: 1.2rem;
+      opacity: 0.9;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background: #222;
+      padding: 1rem;
+      text-align: center;
+      z-index: 1000;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: var(--primary-color);
+    }
+
+    section {
+      padding: 3rem 1rem;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    h2 {
+      color: var(--primary-color);
+      margin-bottom: 2rem;
+      border-bottom: 3px solid var(--primary-color);
+      padding-bottom: 0.5rem;
+      display: inline-block;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: transform 0.2s;
+      border-left: 5px solid var(--primary-color);
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h3 {
+      color: var(--secondary-color);
+      margin-bottom: 1rem;
+    }
+
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .btn {
+      display: inline-block;
+      background: var(--primary-color);
+      color: white;
+      padding: 0.6rem 1.2rem;
+      text-decoration: none;
+      border-radius: 6px;
+      margin-top: 1rem;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background: var(--secondary-color);
+    }
+
+    .tag {
+      display: inline-block;
+      background: #e9ecef;
+      color: #495057;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      margin: 0.2rem;
+    }
+
+    footer {
+      background: #222;
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 768px) {
+      nav a {
+        display: block;
+        margin: 0.8rem 0;
+      }
+
+      header h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header id="home">
+    <h1>SUN HUAYI</h1>
+    <p>Matric No: A207355 | Software Engineering</p>
+    <p>Instructor: Cikgu Izwan</p>
+  </header>
+
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#sdg">SDG Theme</a>
+    <a href="#labs">Lab Submissions</a>
+    <a href="#projects">Projects</a>
+    <a href="#reflection">Reflection</a>
+    <a href="#skills">Skills & Resources</a>
+  </nav>
+
+  <section id="sdg">
+    <h2>SDG 1: No Poverty</h2>
+    <div class="card">
+      <p><strong>Goal:</strong> End poverty in all its forms everywhere.</p>
+      <p><strong>Why it matters:</strong> Unemployment and underemployment are major drivers of poverty, yet many job
+        seekers struggle to find suitable opportunities due to information barriers in the job market. Providing an
+        accessible platform connects job seekers with employers, empowering individuals to secure stable incomes and
+        improve their livelihoods.</p>
+    </div>
+  </section>
+
+  <section id="labs">
+    <h2>Lab Submissions</h2>
+
+    <div class="card">
+      <h3>Lab 1: UI & Layouts</h3>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/sq4zVn57rkY" allowfullscreen></iframe>
+      </div>
+      <p><strong>Reflection:</strong> Building the basic UI introduced me to the fundamentals of Jetpack Compose. I
+        learned how to effectively use Rows, Columns, and Modifiers to create a structured and responsive layout from
+        scratch.</p>
+    </div>
+
+    <div class="card">
+      <h3>Lab 2: Interaction & State</h3>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/Qu-q-VzekRs" allowfullscreen></iframe>
+      </div>
+      <p><strong>Reflection:</strong> Adding state management using `remember` and `mutableStateOf` brought the app to
+        life. It was fascinating to see how the UI reacts dynamically to user interactions like button clicks.</p>
+    </div>
+
+    <div class="card">
+      <h3>Lab 3: Material Design</h3>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/uh6uCpkMXjA" allowfullscreen></iframe>
+      </div>
+      <p><strong>Reflection:</strong> Implementing Material 3 components significantly improved the app's aesthetics. I
+        now understand the critical role of typography, cohesive color schemes, and standardized UI elements in user
+        experience.</p>
+    </div>
+
+    <div class="card">
+      <h3>Lab 4: Navigation</h3>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/ZxdaiFRo7M0" allowfullscreen></iframe>
+      </div>
+      <p><strong>Reflection:</strong> Setting up the NavHost to navigate between multiple screens tied individual
+        components into a cohesive application. Managing routes and passing data between screens was a major technical
+        milestone.</p>
+    </div>
+
+    <div class="card">
+      <h3>Lab 5: Room Database</h3>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/1jx1VBDHwjE" allowfullscreen></iframe>
+      </div>
+      <p><strong>Reflection:</strong> Integrating the Room database introduced me to local data persistence in Android.
+        Writing DAOs and using Kotlin Coroutines to perform asynchronous database operations was challenging but highly
+        rewarding.</p>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+
+    <div class="card">
+      <h3>Project 1: Find A Job App (Base)</h3>
+      <p><strong>Problem Statement:</strong> Job seekers often lack access to consolidated employment information. This
+        base app establishes the core navigation and UI to bridge that gap.</p>
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/qAS6DD8lXzs" allowfullscreen></iframe>
+      </div>
+      <p><strong>Lessons Learned:</strong> Architecting a multi-screen application using ViewModels to share state was
+        crucial. I learned how to maintain clean code structure while handling complex UI navigation flows.</p>
+      <a href="https://github.com/a207355-design/FindAJobAPP" target="_blank" class="btn">View on GitHub</a>
+    </div>
+
+    <div class="card">
+      <h3>Project 2: Find A Job App (Advanced Integration)</h3>
+      <p><strong>Problem Statement:</strong> To effectively combat poverty (SDG 1), a job platform must provide
+        real-time opportunities, location-aware matching, and community support. This update integrates live APIs, GPS
+        sensors, and cloud databases to make the platform truly functional.</p>
+      <div class="video-container">
+        <!-- IMPORTANT: REPLACE "YOUR_PROJECT_2_VIDEO_ID_HERE" WITH YOUR ACTUAL YOUTUBE VIDEO ID -->
+        <iframe src="https://www.youtube.com/embed/pOL3LCixHnc" allowfullscreen></iframe>
+      </div>
+      <p><strong>Lessons Learned:</strong> Integrating Firebase Firestore for cloud sharing and Retrofit for REST APIs
+        expanded my understanding of connected applications. Utilizing device hardware (GPS Location) elevated the
+        project from a static interface to a dynamic, real-world utility.</p>
+      <a href="https://github.com/a207355-design/FindAJobAPP" target="_blank" class="btn">View on GitHub</a>
+    </div>
+  </section>
+
+  <section id="reflection">
+    <h2>Reflection & Learning Journey</h2>
+    <div class="card">
+      <p>My journey from Lab 1 to Project 2 has been incredibly transformative. Initially, I struggled with grasping the
+        declarative nature of Jetpack Compose layouts. However, as the course progressed, I transitioned from building
+        static screens to developing a fully connected, hardware-aware application. Working consistently on the "Find A
+        Job" app under the SDG 1 theme not only improved my technical skills in APIs, databases, and state management,
+        but also gave my coding practice a meaningful, real-world purpose.</p>
+    </div>
+  </section>
+
+  <section id="skills">
+    <h2>Skills, Tech Stack & Resources</h2>
+    <div class="card">
+      <h3>Tech Stack</h3>
+      <div style="margin-top: 1rem; margin-bottom: 1.5rem;">
+        <span class="tag">Kotlin</span>
+        <span class="tag">Jetpack Compose</span>
+        <span class="tag">MVVM Architecture</span>
+        <span class="tag">Navigation Compose</span>
+        <span class="tag">Room Database</span>
+        <span class="tag">Retrofit (REST APIs)</span>
+        <span class="tag">Firebase Firestore</span>
+        <span class="tag">Google Location Services (GPS)</span>
+        <span class="tag">Coroutines & Flow</span>
+      </div>
+
+      <h3>Resources & Acknowledgements</h3>
+      <ul style="list-style-position: inside; margin-top: 0.5rem;">
+        <li>News API (NewsApi.org) for real-time company updates.</li>
+        <li>Firebase Cloud Services.</li>
+        <li>Material 3 Design Guidelines.</li>
+        <li>Acknowledgement: Utilized AI assistance (Gemini) for code debugging, architecture suggestions, and
+          generating this e-Portfolio layout.</li>
+      </ul>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2026 SUN HUAYI (A207355) - Universiti Kebangsaan Malaysia</p>
+  </footer>
+
+</body>
+
+</html>
