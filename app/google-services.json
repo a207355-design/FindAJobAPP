@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "683292067788",
+    "project_id": "findajobapp",
+    "storage_bucket": "findajobapp.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:683292067788:android:c9c8c41a57214e48d2bf69",
+        "android_client_info": {
+          "package_name": "com.example.findajobapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcrpVXZlpX4ZDVNTtY5dUkD83dtrnCcS0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

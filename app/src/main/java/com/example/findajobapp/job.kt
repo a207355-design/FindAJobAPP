@@ -47,5 +47,12 @@ val jobList = listOf(
     Job("IT Support Specialist", "HP", "Birmingham (B2)", "1 day ago", "7K–11K"),
     Job("Network Engineer", "Huawei", "Reading (RG1)", "2 days ago", "12K–18K"),
     Job("Product Manager", "TikTok", "London (W1)", "6 hours ago", "18K–27K"),
-    Job("Machine Learning Engineer", "Tesla", "Remote", "5 hours ago", "22K–38K")
+    Job("Machine Learning Engineer", "Tesla", "Remote", "5 hours ago", "22K–38K"),
+    Job("Junior Software Engineer", "Petronas Digital", "Kuala Lumpur (KLCC)", "2 hours ago", "8K–12K"),
+    Job("Cloud System Administrator", "Cyberjaya Tech Hub", "Cyberjaya", "5 hours ago", "10K–15K"),
+    Job("Frontend Developer", "Grab", "Petaling Jaya (PJ)", "1 day ago", "9K–14K"),
+    Job("Data Scientist", "Shopee", "Kuala Lumpur (South Bangsar)", "4 hours ago", "12K–18K"),
+    Job("University Research Assistant", "UKM", "Bangi (Selangor)", "1 day ago", "4K–7K"),
+    Job("Automation Technician", "Bangi Industrial Area", "Bangi (Selangor)", "3 hours ago", "6K–9K"),
+    Job("Digital Marketing Executive", "Selangor Media Group", "Bangi (Selangor)", "6 hours ago", "5K–8K")
 )

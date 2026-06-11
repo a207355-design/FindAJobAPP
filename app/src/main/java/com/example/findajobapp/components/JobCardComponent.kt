@@ -25,12 +25,14 @@ import com.example.findajobapp.Job
 fun JobCard(
     job: Job,
     isFavorite: Boolean,   //接收指令：是红心还是白心
-    onFavoriteClick: () -> Unit  //准备点击器，被点击时我应该调用谁
+    onFavoriteClick: () -> Unit,  //准备点击器，被点击时我应该调用谁
+    onClick: () -> Unit = {} // 👇 新加这一行：接收整个卡片的点击跳转指令
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 8.dp),
+            .padding(horizontal = 16.dp, vertical = 8.dp)
+            .clickable { onClick() }, // 👇 新加这一行：让整个卡片变得可点击
         elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         //lab3 question
         shape = RoundedCornerShape(0.dp),
