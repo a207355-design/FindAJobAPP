@@ -26,4 +26,6 @@ class FavoriteJobRepository(
 
     // 存入一条新消息
     suspend fun insertMessage(message: ChatMessage) = chatDao.insertMessage(message)
+
+    //suspend fun deleteAll() = favoriteJobDao.deleteAll()
 }

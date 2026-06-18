@@ -43,6 +43,8 @@ import com.google.android.gms.location.LocationServices
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.ui.platform.LocalContext
+import android.location.Geocoder
+import java.util.Locale
 
 //搜索部分的内容
 @Composable
@@ -168,6 +170,7 @@ fun FilterBar(
     modifier: Modifier = Modifier
 ) {
     val context = LocalContext.current
+    //创建定位客户端
     val fusedLocationClient = remember { LocationServices.getFusedLocationProviderClient(context) }
     val image = painterResource(R.drawable.filter)
     var expanded by remember { mutableStateOf(false) }
@@ -232,16 +235,61 @@ fun FilterBar(
                 FilterSectionTitle("Current Location")
                 Button(
                     onClick = {
-                        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                        //查看用户是否允许定位
+                        if (ActivityCompat.checkSelfPermission(
+                                context,
+                                Manifest.permission.ACCESS_FINE_LOCATION
+                        )
+                            == PackageManager.PERMISSION_GRANTED //判断权限结果如果等于这个，进入下一步
+                            ) {
+                            //在同意的前提下进入这一步，获取位置
                             fusedLocationClient.lastLocation.addOnSuccessListener { loc ->
+
                                 if (loc != null) {
-                                    // 更新位置信息，模拟器通常定位在 Mountain View
-                                    onLocationChange("Bangi, Selangor")
+
+                                    try {
+
+                                        val geocoder =
+                                            Geocoder(context, Locale.getDefault())
+
+                                        val addresses =
+                                            geocoder.getFromLocation(
+                                                loc.latitude,
+                                                loc.longitude,
+                                                1
+                                            )
+
+                                        if (!addresses.isNullOrEmpty()) {
+
+                                            val city =
+                                                addresses[0].locality ?: ""
+
+                                            val state =
+                                                addresses[0].adminArea ?: ""
+
+                                            onLocationChange("$city, $state")
+
+                                        } else {
+
+                                            onLocationChange(
+                                                "${loc.latitude}, ${loc.longitude}"
+                                            )
+                                        }
+
+                                    } catch (e: Exception) {
+
+                                        onLocationChange(
+                                            "${loc.latitude}, ${loc.longitude}"
+                                        )
+                                    }
+
                                 } else {
+
                                     onLocationChange("Not Found")
                                 }
                             }
                         } else {
+                            //如果没有权限，跳转到这里
                             onLocationChange("No Permission")
                         }
                     },

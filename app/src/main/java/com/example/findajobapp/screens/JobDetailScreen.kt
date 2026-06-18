@@ -29,6 +29,7 @@ fun JobDetailScreen(
 ) {
     val job = jobList.find { it.company == companyName }
 
+    //API的起点
     LaunchedEffect(key1 = companyName) {
         if (companyName != null) {
             viewModel.fetchCompanyNews(companyName)

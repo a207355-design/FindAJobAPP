@@ -6,6 +6,7 @@ data class Job(
     val location: String,
     val time: String,
     val salary: String
+    //如果要变表的话这里也要添加东西
 )
 
 val jobList = listOf(

@@ -62,6 +62,7 @@ class AppViewModel(private val repository: FavoriteJobRepository) : ViewModel() 
                 repository.deleteFavorite(favJob)
             } else {
                 repository.insertFavorite(FavoriteJob(
+                    //如果我要改变表格这里也要变
                     title = job.title, company = job.company,
                     location = job.location, time = job.time, salary = job.salary
                 ))
@@ -86,6 +87,11 @@ class AppViewModel(private val repository: FavoriteJobRepository) : ViewModel() 
     fun updateProfileLocation(newLocation: String) { profile.value = profile.value.copy(location = newLocation) }
     fun updateEmail(newEmail: String) { profile.value = profile.value.copy(email = newEmail) }
     fun updatePhone(newPhone: String) { profile.value = profile.value.copy(phone = newPhone) }
+    //fun clearAllFavorites() {
+    //    viewModelScope.launch {
+    //        repository.deleteAll()
+    //    }
+    //}
 
     // =========================================================
     // 3. 聊天详情模块 (保持不变)
@@ -111,10 +117,13 @@ class AppViewModel(private val repository: FavoriteJobRepository) : ViewModel() 
     var newsErrorMessage = mutableStateOf("")
         private set
 
+    //这里对应细节屏幕里的抓取viewmodel里面的函数
     fun fetchCompanyNews(companyName: String) {
         viewModelScope.launch {
+            //开始加载
             isNewsLoading.value = true
             newsErrorMessage.value = ""
+            //清空旧新闻，比如说你点了第一个工作，会有3个新闻，你得清除掉之后你再去把他们加上
             companyNews.clear()
 
             try {
@@ -125,7 +134,9 @@ class AppViewModel(private val repository: FavoriteJobRepository) : ViewModel() 
                     return@launch
                 }
 
-                val response = RetrofitClient.newsApiService.getCompanyNews(companyName, apiKey = apiKey)
+                //！！！！真正发API请求   RetrofitClient相当于电话机，NewsApiService相当于通讯录
+                val response = RetrofitClient.newsApiService
+                    .getCompanyNews(companyName, apiKey = apiKey)  //拨打电话
 
                 if (response.articles != null && response.articles.isNotEmpty()) {
                     companyNews.addAll(response.articles)
@@ -144,15 +155,17 @@ class AppViewModel(private val repository: FavoriteJobRepository) : ViewModel() 
     // =========================================================
     // 5. [新增] Firebase 社区模块
     // =========================================================
-    private val db = FirebaseFirestore.getInstance()
+    private val db = FirebaseFirestore.getInstance()    //链接数据库
     var communityPosts = androidx.compose.runtime.mutableStateListOf<CommunityPost>()
         private set
 
     // 实时监听数据库中的帖子
     fun fetchCommunityPosts() {
+        //打开db.collection("community_posts")集合（这里不叫table）
         db.collection("community_posts")
+            //排序，按时间倒序
             .orderBy("timestamp", Query.Direction.DESCENDING) // 按时间倒序，最新的在上面
-            .addSnapshotListener { snapshot, e ->
+            .addSnapshotListener { snapshot, e -> //类似于room里的flow，自动监听
                 if (e != null) {
                     return@addSnapshotListener
                 }
@@ -171,11 +184,13 @@ class AppViewModel(private val repository: FavoriteJobRepository) : ViewModel() 
     // 发送新帖子到数据库
     fun addCommunityPost(content: String) {
         if (content.isNotBlank()) {
+            //创建
             val post = CommunityPost(
                 author = profile.value.name, // 直接用你个人资料里的名字
                 content = content,
                 timestamp = System.currentTimeMillis()
             )
+            //添加到firebase
             db.collection("community_posts").add(post)
         }
     }

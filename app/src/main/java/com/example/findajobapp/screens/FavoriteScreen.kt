@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState // 🚨 必须导入这个
@@ -38,6 +39,14 @@ fun FavoriteScreen(viewModel: AppViewModel) {
             locationText = locationText,
             onLocationChange = { locationText = it }
         )
+
+//        Button(
+//            onClick = {
+//                  viewModel.clearAllFavorites()
+//            }
+//        ) {
+//            Text("Clear All Favorites")
+//        }
 
         Box(modifier = Modifier.fillMaxSize()) {
 
