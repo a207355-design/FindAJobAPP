@@ -155,7 +155,9 @@ class AppViewModel(private val repository: FavoriteJobRepository) : ViewModel() 
     // =========================================================
     // 5. [新增] Firebase 社区模块
     // =========================================================
-    private val db = FirebaseFirestore.getInstance()    //链接数据库
+
+    //链接数据库
+    private val db = FirebaseFirestore.getInstance()
     var communityPosts = androidx.compose.runtime.mutableStateListOf<CommunityPost>()
         private set
 

@@ -44,6 +44,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.ui.platform.LocalContext
 import android.location.Geocoder
+import com.google.android.gms.location.Priority
 import java.util.Locale
 
 //搜索部分的内容
@@ -243,47 +244,35 @@ fun FilterBar(
                             == PackageManager.PERMISSION_GRANTED //判断权限结果如果等于这个，进入下一步
                             ) {
                             //在同意的前提下进入这一步，获取位置
-                            fusedLocationClient.lastLocation.addOnSuccessListener { loc ->
+                            fusedLocationClient.getCurrentLocation(
+                                Priority.PRIORITY_HIGH_ACCURACY,
+                                null
+                            ).addOnSuccessListener { loc ->
 
                                 if (loc != null) {
 
-                                    try {
+                                    val geocoder =
+                                        Geocoder(context, Locale.getDefault())
 
-                                        val geocoder =
-                                            Geocoder(context, Locale.getDefault())
-
-                                        val addresses =
-                                            geocoder.getFromLocation(
-                                                loc.latitude,
-                                                loc.longitude,
-                                                1
-                                            )
-
-                                        if (!addresses.isNullOrEmpty()) {
-
-                                            val city =
-                                                addresses[0].locality ?: ""
-
-                                            val state =
-                                                addresses[0].adminArea ?: ""
-
-                                            onLocationChange("$city, $state")
-
-                                        } else {
-
-                                            onLocationChange(
-                                                "${loc.latitude}, ${loc.longitude}"
-                                            )
-                                        }
-
-                                    } catch (e: Exception) {
-
-                                        onLocationChange(
-                                            "${loc.latitude}, ${loc.longitude}"
+                                    val addresses =
+                                        geocoder.getFromLocation(
+                                            loc.latitude,
+                                            loc.longitude,
+                                            1
                                         )
-                                    }
 
-                                } else {
+                                    if (!addresses.isNullOrEmpty()) {
+
+                                        val city =
+                                            addresses[0].locality ?: ""
+
+                                        val state =
+                                            addresses[0].adminArea ?: ""
+
+                                        onLocationChange("$city, $state")
+                                    }
+                                }
+                             else {
 
                                     onLocationChange("Not Found")
                                 }
